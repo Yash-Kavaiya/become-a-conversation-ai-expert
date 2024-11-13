@@ -427,6 +427,102 @@ Additional considerations when working with entities.
 ## Conclusion
 
 Designing utterances and entities with best practices in mind significantly enhances the effectiveness of NLP models in conversational AI. By employing strategies like natural variance, balanced datasets, and rigorous testing, developers can build more robust and user-friendly applications. Utilizing features like composite bag entities and crowdsourcing further refines the model's capabilities, ensuring it meets real-world user needs.
+Here's a summary of the key concepts in fine-tuning routing, smart dialog configuration, channel integration, and web widget customization for Oracle Digital Assistant (ODA):
 
+### Fine-Tuning Routing
+Routing in a digital assistant uses confidence thresholds to determine the best match for user intents and skills, balancing user experience and accuracy.
 
-- 
+- **Routing Parameters**:
+  - **Confidence Threshold**: Sets the minimum score (0–1 scale) needed for a skill or intent match.
+  - **Win Margin**: Sets the margin a skill or intent must exceed over others to prevent ambiguity.
+  - **Consider All Threshold**: Defines the threshold where the assistant considers multiple skills as potential matches.
+
+### Examples of Routing Parameters
+For example, with a **Confidence Threshold of 40%** and **Win Margin of 10%**, if Skill A has a score of 78% and Skill B has 69%, Skill A is selected due to the higher score, clearing the win margin threshold.
+
+### Smart Dialog Configuration
+Customizable prompts and settings manage user interactions, including how the assistant handles interruptions, flow changes, and resumes.
+- **Interrupt Prompt Confidence Threshold**: Adjusts how often the assistant asks clarifying questions.
+- **Skill Settings**: Skills can be enabled, exposed, or grouped for contextual routing. Grouped skills treat related skills as "in context."
+
+### Conversation Tester
+The conversation tester allows developers to simulate user interactions, inspect variables, and understand routing decisions. Tabs include:
+- **Dialog Flow**: Shows dialog states, variables, and values.
+- **Routing**: Displays confidence scores and rules.
+- **JSON**: Shows the raw payload exchanged between the assistant and client.
+
+### Channels in Oracle Digital Assistant
+Channels are adapters that connect digital assistants to messaging platforms or endpoints, categorized as:
+- **User Channels**: Enable user interactions via messengers like Facebook Messenger, Slack, Microsoft Teams, Twilio, and more.
+- **Agent Integrations**: Integrate with Oracle B2C, B2B, or third-party agent systems.
+- **External Events**: Include application-initiated conversations or events.
+
+Channels support message format conversions, and custom channels can be built with webhooks.
+
+### Web Channels & SDK Integration
+Oracle Web SDK integrates a digital assistant into a web application, providing:
+- **Declarative Configuration**: Includes zero-downtime configuration, access control, domain allowlisting, JWT tokens, and secret keys for secure client authentication.
+- **Feature Flags**: Enable/disable messenger features like a "Clear Message" button or speech recognition.
+- **Customizable Look & Feel**: Modify colors, fonts, themes, and icons with CSS.
+- **Initial Welcome Messages**: Display an introductory message when users load the page.
+
+### Adding a Web Widget
+To add the ODA web widget:
+1. Copy `web-sdk.js` and `settings.js` from the SDK to your site.
+2. Configure the widget through an external configuration file for easier customization.
+3. Options include headless mode, page load chat window, and partial message display via a known delimiter.
+
+This configuration enables seamless integration with ODA and customization for a tailored user experience across multiple messaging platforms and web pages.
+
+In Oracle Digital Assistant (ODA), **Resource Bundles** are used to manage the text responses for digital assistants and skills, enabling consistent messaging across languages and channels. Here’s a breakdown of their purpose and functionality:
+
+### Key Functions of Resource Bundles
+1. **Centralized Message Management**: Resource bundles store all text responses, prompts, and messages outside the source code, allowing for easy updates and changes without altering the code itself.
+2. **Multilingual Support**: Essential for creating multilingual digital assistants, resource bundles allow for adaptive responses across multiple languages and channels.
+
+### Organizing Resource Bundles
+Resource bundles are organized into categories:
+- **Default Bundle**: Contains messages for the base language.
+- **User-Defined Bundles**: Specific to skills, supporting intents, Q&A, and other skill-related messages.
+
+### Managing Entries in Resource Bundles
+- **Keys**: Unique identifiers for each message string, enabling easy reference.
+- **Text**: The actual message displayed to the user.
+- **Annotations**: Provide hints or context for translators, copywriters, or developers.
+
+### Best Practices for Resource Bundle Keys
+- **Unique Naming**: Ensure key names are unique within each skill.
+- **Contextual Naming**: Include context in the key names, such as "prompt," "error," or "label," for better organization and tracking.
+
+### Views in the Message Bundle Panel
+- **View by Key**: Shows translation strings for each key, useful for comparing translations across languages.
+- **View by Language**: Lists all keys for a language, allowing easy searching and editing of messages.
+
+### Multilingual Support and Translation
+Oracle Digital Assistant can detect user language and adapt responses accordingly, supporting both **native language training** and **translation services**:
+
+1. **Native Language Support**:
+   - **Primary Language Training**: Train the assistant in the primary language, with secondary languages added later.
+   - **Zero-Shot and Few-Shot Training**: Start with the primary language (zero-shot) and add specific phrases for secondary languages (few-shot) to improve understanding.
+   - **Entity Translation**: Translate value list and dynamic entities to ensure relevant values are available in all languages.
+
+2. **Translation Services**:
+   - Supported translation APIs, including OCI Language, Google Translation API, and Microsoft Translate, enable translation for skills not natively supported.
+   - Configure translation in **Digital Assistant Settings** for supported languages.
+
+### Choosing Between Native Language Support and Translation Services
+It’s crucial to use a consistent approach across all skills in a digital assistant:
+- **Native Language Support**: Recommended where possible for high accuracy. All skills must support the same languages.
+- **Translation Services**: Useful for skills not natively supported, with automatic language detection and translation.
+
+### Detecting and Using Language in Skills
+- **Detect Language Component**: Sets the `profile.languageTag` variable based on the detected user language.
+- **Profile.LanguageTag**: This variable stores the two-letter country code for the user language and is used to access the correct resource bundle.
+
+### Customizing the Web SDK for Multiple Languages
+For web applications, the **Oracle Web SDK** allows integration of resource bundles and translation capabilities. Features include:
+- **Message Customization**: Configure messages to appear as per language and channel requirements.
+- **Look & Feel Adjustments**: Customize themes and colors to align with different language requirements.
+  
+### Summary of Benefits for Businesses
+A well-configured resource bundle strategy enables Oracle Digital Assistants to serve multiple languages, handle regional variations, and keep data secure in the Oracle Cloud. This approach improves user experience and ensures seamless, multilingual interactions.
